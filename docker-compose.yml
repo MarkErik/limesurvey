@@ -12,6 +12,7 @@ services:
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
+    env_file: .env
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PASSWORD=${MYSQL_PASSWORD}
@@ -25,6 +26,7 @@ services:
     depends_on:
       - limesurvey-app
     restart: unless-stopped
+    env_file: .env
     environment: 
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
@@ -43,6 +45,7 @@ services:
     restart: unless-stopped
     volumes:
       - db-data:/var/lib/mysql
+    env_file: .env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
