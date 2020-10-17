@@ -7,8 +7,8 @@ services:
       context: dockerfiles/limesurvey
       dockerfile: Dockerfile
     volumes:
-      - data/upload/surveys:/var/www/html/upload/surveys
-      - data/limesurvey:/var/www/html
+      - ./data/upload/surveys:/var/www/html/upload/surveys
+      - ./data/limesurvey:/var/www/html
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
@@ -33,7 +33,7 @@ services:
       - LETSENCRYPT_EMAIL=${LEMAIL}
     volumes:
       - nginx.conf:/etc/nginx/nginx.conf:ro
-      - data/limesurvey:/var/www/html
+      - ./data/limesurvey:/var/www/html
       - ./logs-nginx:/var/log/nginx
     networks:
       - default
@@ -44,7 +44,7 @@ services:
     container_name: limesurvey-db
     restart: unless-stopped
     volumes:
-      - db-data:/var/lib/mysql
+      - ./data/db-data:/var/lib/mysql
     env_file: .env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
