@@ -1,2 +1,12 @@
+# Files
 .DS_Store
 .env
+
+# Database dir
+db-data
+
+# Backups
+backups
+
+# Logs
+logs-nginx/

@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+
+  limesurvey-app:
+    build:
+      context: dockerfiles/limesurvey
+      dockerfile: Dockerfile
+    volumes:
+      - data/upload/surveys:/var/www/html/upload/surveys
+      - data/limesurvey:/var/www/html
+    container_name: limesurvey-app
+    depends_on:
+      - limesurvey-db
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    networks:
+      - default
+  
+  limesurvey-nginx:
+    image: nginx:latest
+    container_name: limesurvey-nginx
+    depends_on:
+      - limesurvey-app
+    restart: unless-stopped
+    environment: 
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LEMAIL}
+    volumes:
+      - nginx.conf:/etc/nginx/nginx.conf:ro
+      - data/limesurvey:/var/www/html
+      - ./logs-nginx:/var/log/nginx
+    networks:
+      - default
+      - outside
+  
+  limesurvey-db:
+    image: mariadb:latest
+    container_name: limesurvey-db
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    command: ['--default-authentication-plugin=mysql_native_password','--character-set-server=utf8mb4','--collation-server=utf8mb4_unicode_ci']
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: internal-limesurvey
+  outside:
+    external:
+      name: connect-to-proxy
