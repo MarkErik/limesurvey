@@ -32,7 +32,7 @@ services:
       - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
       - LETSENCRYPT_EMAIL=${LEMAIL}
     volumes:
-      - nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./data/limesurvey:/var/www/html
       - ./logs-nginx:/var/log/nginx
     networks:
