@@ -5,8 +5,8 @@ services:
   limesurvey-app:
     image: martialblog/limesurvey:4-fpm-alpine
     volumes:
-      - /tmp/upload/surveys:/var/www/html/upload/surveys
-      - lime:/var/www/html
+      #- /tmp/upload/surveys:/var/www/html/upload/surveys
+      - ./data/limesurvey:/var/www/html
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
@@ -33,7 +33,7 @@ services:
       - LETSENCRYPT_EMAIL=${LEMAIL}
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - lime:/var/www/html
+      - ./data/limesurvey:/var/www/html
       - ./logs-nginx:/var/log/nginx
     networks:
       - default
@@ -47,10 +47,10 @@ services:
       - ./data/db-data:/var/lib/mysql
     env_file: .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     command: ['--default-authentication-plugin=mysql_native_password','--character-set-server=utf8mb4','--collation-server=utf8mb4_unicode_ci']
     networks:
       - default
@@ -62,8 +62,3 @@ networks:
   outside:
     external:
       name: connect-to-proxy
-
-volumes:
-  lime:
-
-    
