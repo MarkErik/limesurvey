@@ -7,7 +7,6 @@ services:
     volumes:
       - ./data/limesurvey-uploads:/var/www/html/upload/surveys
       - lime:/var/www/html
-      - ./data/limesurvey-config:/var/www/html/application/config
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
