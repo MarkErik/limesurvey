@@ -5,7 +5,7 @@ services:
   limesurvey-app:
     image: martialblog/limesurvey:4-fpm-alpine
     volumes:
-      - /tmp/upload/surveys:/var/www/html/upload/surveys      - ./data/limesurvey:/var/www/html
+      - /tmp/upload/surveys:/var/www/html/upload/surveys
       - lime:/var/www/html
     container_name: limesurvey-app
     depends_on:
