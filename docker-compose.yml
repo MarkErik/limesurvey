@@ -13,6 +13,8 @@ services:
     env_file: .env
     environment:
       - DB_HOST=${DB_HOST}
+      - DB_NAME=${MYSQL_DATABASE}
+      - DB_USERNAME=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     networks:
@@ -63,4 +65,5 @@ networks:
 
 volumes:
   lime:
+
     
