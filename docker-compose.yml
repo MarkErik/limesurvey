@@ -4,12 +4,9 @@ services:
 
   limesurvey-app:
     image: martialblog/limesurvey:4-fpm-alpine
-    # build:
-    #   context: dockerfiles/limesurvey
-    #   dockerfile: Dockerfile
     volumes:
-    #  - ./data/upload/surveys:/var/www/html/upload/surveys
-      - ./data/limesurvey:/var/www/html
+      - /tmp/upload/surveys:/var/www/html/upload/surveys      - ./data/limesurvey:/var/www/html
+      - lime:/var/www/html
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
@@ -34,7 +31,7 @@ services:
       - LETSENCRYPT_EMAIL=${LEMAIL}
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./data/limesurvey:/var/www/html
+      - lime:/var/www/html
       - ./logs-nginx:/var/log/nginx
     networks:
       - default
@@ -63,3 +60,7 @@ networks:
   outside:
     external:
       name: connect-to-proxy
+
+volumes:
+  lime:
+    
