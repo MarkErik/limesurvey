@@ -23,6 +23,7 @@ RUN set -ex; \
         gd \
         imap \
         ldap \
+        libonig-dev \
         mbstring \
         pdo \
         pdo_mysql \
