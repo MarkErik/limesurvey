@@ -47,6 +47,6 @@ RUN set -ex; \
 
 EXPOSE 9000
 
-COPY entrypoint.sh entrypoint.sh
+COPY ./entrypoint.sh /var/www/html/entrypoint.sh
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]

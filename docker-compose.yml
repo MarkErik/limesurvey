@@ -7,7 +7,7 @@ services:
       context: dockerfiles/limesurvey
       dockerfile: Dockerfile
     volumes:
-      - ./data/upload/surveys:/var/www/html/upload/surveys
+    #  - ./data/upload/surveys:/var/www/html/upload/surveys
       - ./data/limesurvey:/var/www/html
     container_name: limesurvey-app
     depends_on:
