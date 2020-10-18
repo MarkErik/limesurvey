@@ -3,11 +3,14 @@ LABEL maintainer="markus@martialblog.de"
 ARG version='4.3.20+201012'
 ARG sha256_checksum='448a0f54e0818bc971837a78a389bb0fd296f879a1078f1acd4637f0d9c37220'
 
+RUN apt-get update
+
 # Install OS dependencies
 RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
         freetype-dev \
         libpng-dev \
+        libonig-dev \
         libjpeg-turbo-dev \
         openldap-dev \
         imap-dev \
@@ -15,6 +18,8 @@ RUN set -ex; \
         apk add --no-cache netcat-openbsd bash
 
 # Install PHP Plugins
+
+
 RUN set -ex; \
         docker-php-ext-configure gd --with-freetype --with-jpeg ; \
         docker-php-ext-configure imap --with-imap-ssl && \
@@ -23,7 +28,6 @@ RUN set -ex; \
         gd \
         imap \
         ldap \
-        libonig-dev \
         mbstring \
         pdo \
         pdo_mysql \
