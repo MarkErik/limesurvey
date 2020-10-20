@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   limesurvey-app:
-    image: martialblog/limesurvey:4-fpm-alpine
+    image: martialblog/limesurvey:3-fpm-alpine
     volumes:
       - ./data/limesurvey-uploads:/var/www/html/upload/surveys
       - lime:/var/www/html
@@ -17,6 +17,12 @@ services:
       - DB_USERNAME=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    networks:
+      - default
+
+  limesurvey-redis:
+    image: redis:alpine
+    container_name: limesurvey-redis
     networks:
       - default
   
