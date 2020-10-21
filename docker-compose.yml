@@ -3,7 +3,9 @@ version: "3.8"
 services:
 
   limesurvey-app:
-    image: martialblog/limesurvey:3-fpm-alpine
+    #image: martialblog/limesurvey:3-fpm-alpine
+    build:
+      context: ./dockerfiles/limesurvey
     volumes:
       - ./data/limesurvey-uploads:/var/www/html/upload/surveys
       - lime:/var/www/html
