@@ -14,12 +14,10 @@ RUN set -ex; \
         libzip-dev && \
         apk add --no-cache netcat-openbsd bash
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-
-# Install PHP Plugins
-RUN docker-php-ext-configure imap --with-imap-ssl
-        
-RUN docker-php-ext-install \
+RUN set -ex; \
+        docker-php-ext-configure gd --with-freetype --with-jpeg \
+        docker-php-ext-configure imap --with-imap-ssl \
+        docker-php-ext-install \
         gd \
         imap \
         mbstring \
