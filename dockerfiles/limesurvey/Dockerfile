@@ -15,8 +15,8 @@ RUN set -ex; \
         apk add --no-cache netcat-openbsd bash
 
 RUN set -ex; \
-        docker-php-ext-configure gd --with-freetype --with-jpeg \
-        docker-php-ext-configure imap --with-imap-ssl \
+        docker-php-ext-configure gd --with-freetype --with-jpeg ; \
+        docker-php-ext-configure imap --with-imap-ssl && \
         docker-php-ext-install \
         gd \
         imap \
