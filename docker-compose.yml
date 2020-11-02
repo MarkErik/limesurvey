@@ -3,7 +3,6 @@ version: "3.8"
 services:
 
   limesurvey-app:
-    #image: martialblog/limesurvey:3-fpm-alpine
     build:
       context: ./dockerfiles/limesurvey
     volumes:
@@ -14,11 +13,12 @@ services:
       - limesurvey-db
     env_file: .env
     environment:
-      - DB_HOST=${DB_HOST}
+      - ADMIN_PASSWORD
+      - DB_TYPE
+      - DB_HOST
       - DB_NAME=${MYSQL_DATABASE}
       - DB_USERNAME=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     networks:
       - default
 
@@ -29,25 +29,37 @@ services:
       - default
   
   limesurvey-nginx:
-    image: nginx:latest
-    #image: openresty/openresty:1.17.8.2-5-alpine 
+    image: nginx:alpine
     container_name: limesurvey-nginx
     depends_on:
       - limesurvey-app
     restart: unless-stopped
     env_file: .env
     environment: 
-      - VIRTUAL_HOST=${VIRTUAL_HOST}
-      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
-      - LETSENCRYPT_EMAIL=${LEMAIL}
+      - VIRTUAL_HOST
+      - LETSENCRYPT_HOST
+      - LETSENCRYPT_EMAIL
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      #- ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
       - lime:/var/www/html
       - ./logs-nginx:/var/log/nginx
-#    command: [nginx-debug, '-g', 'daemon off;']
     networks:
       - default
+      - outside
+
+  limesurvey-redirect:
+    depends_on:
+      - limesurvey-nginx
+    build: ./dockerfiles/redirect
+    container_name: limesurvey-redirect
+    restart: unless-stopped
+    environment:
+      - VIRTUAL_HOST=${REDIRECT_ADDRESS_FROM}
+      - "HTTPS_METHOD=noredirect"
+      - LETSENCRYPT_HOST=${REDIRECT_ADDRESS_FROM}
+      - LETSENCRYPT_EMAIL
+      - REDIRECT=${REDIRECT_ADDRESS_TO}
+    networks:
       - outside
   
   limesurvey-db:
@@ -58,10 +70,10 @@ services:
       - ./data/db-data:/var/lib/mysql
     env_file: .env
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
     command: ['--default-authentication-plugin=mysql_native_password','--character-set-server=utf8mb4','--collation-server=utf8mb4_unicode_ci']
     networks:
       - default

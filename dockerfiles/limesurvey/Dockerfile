@@ -1,8 +1,6 @@
 FROM php:7.4-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.24.1+201014'
-ARG sha256_checksum='18c61847ddcbfab073d03fac7964de38597665c12bbfe8bf153f583041e6fd2b'
-
+ARG version='3.24.3+201027'
 
 
 # Install OS dependencies
@@ -11,11 +9,9 @@ RUN set -ex; \
         freetype-dev \
         libpng-dev \
         libjpeg-turbo-dev \
-        openldap-dev \
         imap-dev \
         oniguruma-dev \
-        libzip-dev \
-        postgresql-dev && \
+        libzip-dev && \
         apk add --no-cache netcat-openbsd bash
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -26,21 +22,15 @@ RUN docker-php-ext-configure imap --with-imap-ssl
 RUN docker-php-ext-install \
         gd \
         imap \
-        ldap \
         mbstring \
         pdo \
         pdo_mysql \
-        pdo_pgsql \
-        pgsql \
         zip
-
 
 # Download, unzip and chmod of LimeSurvey
 RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
 RUN set -ex; \
-        echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
-        \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         \
         rm -rf "/tmp/limesurvey.tar.gz" \
