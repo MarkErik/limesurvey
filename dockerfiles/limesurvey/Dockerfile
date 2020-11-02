@@ -11,7 +11,7 @@ RUN set -ex; \
         libjpeg-turbo-dev \
         openldap-dev \
         imap-dev \
-        postgresql-dev && \
+        postgresql-dev \
         oniguruma-dev \
         libzip-dev && \
         apk add --no-cache netcat-openbsd bash
