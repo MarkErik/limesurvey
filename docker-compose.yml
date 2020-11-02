@@ -80,7 +80,7 @@ networks:
       name: internal-limesurvey
   outside:
     external:
-      name: connect-to-proxy
+      name: services
 
 volumes:
   lime:
