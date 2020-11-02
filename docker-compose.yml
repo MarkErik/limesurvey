@@ -14,7 +14,6 @@ services:
     env_file: .env
     environment:
       - ADMIN_PASSWORD
-      - DB_TYPE
       - DB_HOST
       - DB_NAME=${MYSQL_DATABASE}
       - DB_USERNAME=${MYSQL_USER}
