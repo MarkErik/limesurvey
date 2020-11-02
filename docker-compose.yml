@@ -11,7 +11,6 @@ services:
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
-    env_file: .env
     environment:
       - ADMIN_PASSWORD
       - DB_HOST
@@ -33,7 +32,6 @@ services:
     depends_on:
       - limesurvey-app
     restart: unless-stopped
-    env_file: .env
     environment: 
       - VIRTUAL_HOST
       - LETSENCRYPT_HOST
@@ -67,7 +65,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./data/db-data:/var/lib/mysql
-    env_file: .env
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE
