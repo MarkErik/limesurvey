@@ -8,6 +8,7 @@ services:
     volumes:
       - ./data/limesurvey-uploads:/var/www/html/upload/surveys
       - lime:/var/www/html
+      - ./php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
@@ -52,7 +53,7 @@ services:
     restart: unless-stopped
     environment:
       - VIRTUAL_HOST=${REDIRECT_ADDRESS_FROM}
-      - "HTTPS_METHOD=noredirect"
+      - HTTPS_METHOD=noredirect
       - LETSENCRYPT_HOST=${REDIRECT_ADDRESS_FROM}
       - LETSENCRYPT_EMAIL
       - REDIRECT=${REDIRECT_ADDRESS_TO}
