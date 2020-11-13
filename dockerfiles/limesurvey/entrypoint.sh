@@ -77,44 +77,47 @@ else
     cat <<EOF > application/config/config.php
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 return array(
-  'components' => array(
-    'db' => array(
-      'connectionString' => '$DB_TYPE:$DB_CONNECT=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;',
-      'emulatePrepare' => true,
-      'username' => '$DB_USERNAME',
-      'password' => '$DB_PASSWORD',
-      'charset' => '$DB_CHARSET',
-      'tablePrefix' => '$DB_TABLE_PREFIX',
-    ),
-    'cache'=>array(
-        'class'=>'CRedisCache',
-        'hostname'=>'limesurvey-redis',
-        'port'=>6379,
-        'database'=>0,
-        'options'=>STREAM_CLIENT_CONNECT,
-    ),
-    'urlManager' => array(
-      'urlFormat' => '$URL_FORMAT',
-      'rules' => array(),
-      'showScriptName' => false,
-    ),
-    'request' => array(
-      'baseUrl' => '$BASE_URL',
-              'csrfCookie'=>array(
-            'secure'=>true,
+    'components' => array(
+        'db' => array(
+            'connectionString' => '$DB_TYPE:$DB_CONNECT=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;',
+            'emulatePrepare' => true,
+            'username' => '$DB_USERNAME',
+            'password' => '$DB_PASSWORD',
+            'charset' => '$DB_CHARSET',
+            'tablePrefix' => '$DB_TABLE_PREFIX',
         ),
-    ),
-    'session' => array (
-        'cookieParams' => array(
-            'secure' => true,
-            'httponly' => true,
-  ),
-  'config'=>array(
-    'publicurl'=>'$PUBLIC_URL',
-    'debug'=>$DEBUG,
-    'debugsql'=>$DEBUG_SQL,
-  )
+        'cache'=>array(
+            'class'=>'CRedisCache',
+            'hostname'=>'limesurvey-redis',
+            'port'=>6379,
+            'database'=>0,
+            'options'=>STREAM_CLIENT_CONNECT,
+        ),
+        'urlManager' => array(
+            'urlFormat' => '$URL_FORMAT',
+            'rules' => array(),
+            'showScriptName' => false,
+        ),
+        'request' => array(
+            'baseUrl' => '$BASE_URL',
+            'csrfCookie'=>array(
+                'secure'=>true,
+            ),
+        ),
+        'session' => array (
+            'cookieParams' => array(
+                'secure' => true,
+                'httponly' => true,
+            ),
+        ),
+    )
+    'config'=>array(
+        'publicurl'=>'$PUBLIC_URL',
+        'debug'=>$DEBUG,
+        'debugsql'=>$DEBUG_SQL,
+    )
 );
+
 
 EOF
 
