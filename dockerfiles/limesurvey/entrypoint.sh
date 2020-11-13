@@ -110,7 +110,7 @@ return array(
                 'httponly' => true,
             ),
         ),
-    )
+    ),
     'config'=>array(
         'publicurl'=>'$PUBLIC_URL',
         'debug'=>$DEBUG,
