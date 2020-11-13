@@ -86,14 +86,28 @@ return array(
       'charset' => '$DB_CHARSET',
       'tablePrefix' => '$DB_TABLE_PREFIX',
     ),
+    'cache'=>array(
+        'class'=>'CRedisCache',
+        'hostname'=>'limesurvey-redis',
+        'port'=>6379,
+        'database'=>0,
+        'options'=>STREAM_CLIENT_CONNECT,
+    ),
     'urlManager' => array(
       'urlFormat' => '$URL_FORMAT',
       'rules' => array(),
-      'showScriptName' => true,
+      'showScriptName' => false,
     ),
     'request' => array(
       'baseUrl' => '$BASE_URL',
-     ),
+              'csrfCookie'=>array(
+            'secure'=>true,
+        ),
+    ),
+    'session' => array (
+        'cookieParams' => array(
+            'secure' => true,
+            'httponly' => true,
   ),
   'config'=>array(
     'publicurl'=>'$PUBLIC_URL',

@@ -1,5 +1,4 @@
 FROM php:7.4-fpm-alpine
-LABEL maintainer="markus@martialblog.de"
 ARG version='3.24.5+201104'
 
 
