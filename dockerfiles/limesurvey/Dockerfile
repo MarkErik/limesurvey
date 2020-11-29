@@ -7,14 +7,15 @@ RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
         freetype-dev \
         libpng-dev \
+        libzip-dev \
         libjpeg-turbo-dev \
         openldap-dev \
-        imap-dev \
-        postgresql-dev \
         oniguruma-dev \
-        libzip-dev && \
+        imap-dev \
+        postgresql-dev && \
         apk add --no-cache netcat-openbsd bash
 
+# Install PHP plugins
 RUN set -ex; \
         docker-php-ext-configure gd --with-freetype --with-jpeg ; \
         docker-php-ext-configure imap --with-imap-ssl && \
@@ -29,6 +30,7 @@ RUN set -ex; \
 # Download, unzip and chmod of LimeSurvey
 RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
+#Remove temp folder from LimeSurvey, set permissions, and add the robots.txt file
 RUN set -ex; \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         \
@@ -41,6 +43,13 @@ RUN set -ex; \
         printf "User-agent: *\nDisallow: /\n" > /var/www/html/robots.txt && \
         chmod 0444 /var/www/html/robots.txt
 
+#fetch and install plugins
+RUN set -ex; \
+        wget http://extensions.sondages.pro/IMG/auto/addScriptToQuestion.zip --output-document=/var/www/html/plugins/addScriptToQuestion.zip && \
+        unzip addScriptToQuestion.zip && \
+        rm /var/www/html/plugins/addScriptToQuestion.zip && \
+        chown -R www-data:root /var/www/html/plugins/addScriptToQuestion/ ; \
+        chmod -R 644 /var/www/html/plugins/addScriptToQuestion/
 
 EXPOSE 9000
 

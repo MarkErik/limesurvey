@@ -13,6 +13,7 @@ services:
     depends_on:
       - limesurvey-db
     environment:
+      - SITE_NAME
       - ADMIN_PASSWORD
       - DB_HOST
       - PUBLIC_URL=${LETSENCRYPT_HOST}

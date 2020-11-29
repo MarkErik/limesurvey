@@ -15,6 +15,8 @@ ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
 ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
 ENCRYPT_SECRET_KEY=${ENCRYPT_SECRET_KEY:-}
 
+SITE_NAME=${SITE_NAME:-'Limesurvey'}
+
 ADMIN_USER=${ADMIN_USER:-'admin'}
 ADMIN_NAME=${ADMIN_NAME:-'admin'}
 ADMIN_EMAIL=${ADMIN_EMAIL:-'foobar@example.com'}
@@ -101,6 +103,7 @@ return array(
         'request' => array(
             'baseUrl' => '$BASE_URL',
             'csrfCookie'=>array(
+                'domain'=> '$BASE_URL',
                 'secure'=>true,
             ),
         ),
@@ -112,7 +115,9 @@ return array(
             ),
         ),
     ),
+    'runtimePath'=>'/var/limesurvey/runtime/',
     'config'=>array(
+        'sitename'=>'$SITE_NAME',
         'publicurl'=>'$PUBLIC_URL',
         'debug'=>$DEBUG,
         'debugsql'=>$DEBUG_SQL,
