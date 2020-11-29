@@ -119,7 +119,7 @@ return array(
         'force_ssl'=> true,
         'shownoanswer' => 0,
         'showpopups' => 0,
-        'emailmethod' => smtp,
+        'emailmethod' => 'smtp',
     )
 );
 
