@@ -45,7 +45,7 @@ RUN set -ex; \
 
 #fetch and install plugins
 RUN set -ex; \
-        wget http://extensions.sondages.pro/IMG/auto/addScriptToQuestion.zip --output-document=/var/www/html/plugins/addScriptToQuestion.zip && \
+        wget http://extensions.sondages.pro/IMG/auto/addScriptToQuestion.zip -P /var/www/html/plugins/ && \
         unzip /var/www/html/plugins/addScriptToQuestion.zip && \
         rm /var/www/html/plugins/addScriptToQuestion.zip && \
         chown -R www-data:root /var/www/html/plugins/addScriptToQuestion/ ; \
