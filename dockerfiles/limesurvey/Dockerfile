@@ -37,8 +37,8 @@ RUN set -ex; \
         /var/www/html/tests \
         /var/www/html/*.md && \
         chown -R www-data:root /var/www/ ; \
-        chmod -R g=u /var/www \
-        printf "User-agent: *\nDisallow: /\n" > /var/www/html/robots.txt \
+        chmod -R g=u /var/www && \
+        printf "\"User-agent: *\nDisallow: /\n\" > /var/www/html/robots.txt" && \
         chmod 0444 /var/www/html/robots.txt
 
 
