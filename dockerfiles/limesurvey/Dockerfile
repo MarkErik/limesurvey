@@ -1,5 +1,5 @@
 FROM php:7.4-fpm-alpine
-ARG version='3.24.5+201104'
+ARG version='3.25.0+201117'
 
 
 # Install OS dependencies
@@ -37,7 +37,10 @@ RUN set -ex; \
         /var/www/html/tests \
         /var/www/html/*.md && \
         chown -R www-data:root /var/www/ ; \
-        chmod -R g=u /var/www
+        chmod -R g=u /var/www \
+        printf "User-agent: *\nDisallow: /\n" > /var/www/html/robots.txt \
+        chmod 0444 /var/www/html/robots.txt
+
 
 EXPOSE 9000
 

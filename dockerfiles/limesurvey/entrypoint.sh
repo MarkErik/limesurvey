@@ -106,6 +106,7 @@ return array(
         ),
         'session' => array (
             'cookieParams' => array(
+                'domain' => '$BASE_URL',
                 'secure' => true,
                 'httponly' => true,
             ),
@@ -115,6 +116,10 @@ return array(
         'publicurl'=>'$PUBLIC_URL',
         'debug'=>$DEBUG,
         'debugsql'=>$DEBUG_SQL,
+        'force_ssl'=> true,
+        'shownoanswer' => 0,
+        'showpopups' => 0,
+        'emailmethod' => smtp,
     )
 );
 
