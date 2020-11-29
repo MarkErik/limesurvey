@@ -30,7 +30,7 @@ RUN set -ex; \
 # Download, unzip and chmod of LimeSurvey
 RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
-#Remove temp folder from LimeSurvey, set permissions, and add the robots.txt file
+#Remove temp folder from LimeSurvey and create directory for runtime
 RUN set -ex; \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         \
@@ -38,20 +38,27 @@ RUN set -ex; \
         /var/www/html/docs \
         /var/www/html/tests \
         /var/www/html/*.md && \
-        mkdir -p /var/limesurvey/runtime &&\
-        chown -R www-data:root /var/www/ /var/limesurvey/runtime/; \
-        chmod -R g=u /var/www /var/limesurvey/runtime && \
-        printf "User-agent: *\nDisallow: /\n" > /var/www/html/robots.txt && \
-        chmod 0444 /var/www/html/robots.txt
+        mkdir -p /var/limesurvey/runtime
+        
 
 #fetch and install plugins
 RUN set -ex; \
         wget http://extensions.sondages.pro/IMG/auto/addScriptToQuestion.zip -P /var/www/html/plugins/ && \
         unzip /var/www/html/plugins/addScriptToQuestion.zip -d /var/www/html/plugins/ && \
-        rm /var/www/html/plugins/addScriptToQuestion.zip && \
-        chown -R www-data:root /var/www/html/plugins/addScriptToQuestion/ ; \
-        chmod -R 644 /var/www/html/plugins/addScriptToQuestion/
+        rm /var/www/html/plugins/addScriptToQuestion.zip
 
+#set ownership and permissions 
+RUN set -ex; \
+       chown -R www-data:root /var/www/ /var/limesurvey/runtime/; \
+        find /var/www/html/ -type d -exec chmod 755 {} \; \
+        find /var/www/html/ -type f -exec chmod 644 {} \;
+
+#Create robots.txt and set permissions
+RUN set -ex; \
+        printf "User-agent: *\nDisallow: /\n" > /var/www/html/robots.txt && \
+        chmod 0444 /var/www/html/robots.txt
+
+#For the nginx->fpm
 EXPOSE 9000
 
 COPY entrypoint.sh entrypoint.sh
