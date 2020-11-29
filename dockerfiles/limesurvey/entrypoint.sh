@@ -109,7 +109,7 @@ return array(
         ),
         'session' => array (
             'cookieParams' => array(
-                'domain' => '$BASE_URL',
+                'domain' => '$PULIC_URL',
                 'secure' => true,
                 'httponly' => true,
             ),
