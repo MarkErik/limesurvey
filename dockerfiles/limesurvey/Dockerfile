@@ -38,8 +38,9 @@ RUN set -ex; \
         /var/www/html/docs \
         /var/www/html/tests \
         /var/www/html/*.md && \
-        chown -R www-data:root /var/www/ ; \
-        chmod -R g=u /var/www && \
+        mkdir /var/limesurvey/runtime &&\
+        chown -R www-data:root /var/www/ /var/limesurvey/runtime/; \
+        chmod -R g=u /var/www /var/limesurvey/runtime && \
         printf "User-agent: *\nDisallow: /\n" > /var/www/html/robots.txt && \
         chmod 0444 /var/www/html/robots.txt
 
