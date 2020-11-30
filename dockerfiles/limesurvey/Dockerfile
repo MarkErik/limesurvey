@@ -51,7 +51,9 @@ RUN set -ex; \
 RUN set -ex; \
        chown -R www-data:www-data /var/www/ /var/limesurvey/runtime/; \
         find /var/www/html/ -type d -exec chmod 755 {} \; &&\
-        find /var/www/html/ -type f -exec chmod 644 {} \;
+        find /var/www/html/ -type f -exec chmod 644 {} \; && \
+        find /var/www/html/plugins/ -type d -exec chmod 750 {} \; &&\
+        find /var/www/html/plugins/ -type f -exec chmod 640 {} \; && \
 
 #Create robots.txt and set permissions
 RUN set -ex; \
