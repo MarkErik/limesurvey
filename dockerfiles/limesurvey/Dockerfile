@@ -27,7 +27,7 @@ RUN set -ex; \
         pdo_mysql \
         zip
 
-# Download, unzip and chmod of LimeSurvey
+# Download LimeSurvey
 RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
 #Remove temp folder from LimeSurvey and create directory for runtime
