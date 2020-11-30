@@ -49,7 +49,7 @@ RUN set -ex; \
 
 #set ownership and permissions 
 RUN set -ex; \
-       chown -R www-data:root /var/www/ /var/limesurvey/runtime/; \
+       chown -R www-data:www-data /var/www/ /var/limesurvey/runtime/; \
         find /var/www/html/ -type d -exec chmod 755 {} \; &&\
         find /var/www/html/ -type f -exec chmod 644 {} \;
 

@@ -126,6 +126,8 @@ return array(
         'showpopups' => 0,
         'emailmethod' => 'smtp',
         'updatable' => false,
+        'show_logo' => 'hide',
+        'show_last_survey_and_question' => 'hide',
     )
 );
 
