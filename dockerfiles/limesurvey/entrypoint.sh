@@ -55,11 +55,6 @@ else
         DB_CHARSET=${DB_CHARSET:-'utf8mb4'}
     fi
 
-    if [ "$DB_TYPE" = 'pgsql' ]; then
-        echo 'Info: Using PostgreSQL configuration'
-        DB_CHARSET=${DB_CHARSET:-'utf8'}
-    fi
-
     if [ ! -z "$DB_SOCK" ]; then
         echo 'Info: Using unix socket'
         DB_CONNECT='unix_socket'
