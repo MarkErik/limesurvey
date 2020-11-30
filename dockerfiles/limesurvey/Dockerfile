@@ -1,6 +1,4 @@
 FROM php:7.4-fpm-alpine
-ARG version='3.25.2+201131'
-
 
 # Install OS dependencies
 RUN set -ex; \
@@ -27,7 +25,7 @@ RUN set -ex; \
         zip
 
 # Download LimeSurvey
-RUN curl -sSL "https://download.limesurvey.org/lts-releases/limesurvey${version}.zip" --output /tmp/limesurvey.zip
+RUN curl -sSL "https://download.limesurvey.org/lts-releases/limesurvey3.25.2+201131.zip" --output /tmp/limesurvey.zip
 
 #Remove temp folder from LimeSurvey and create directory for runtime
 RUN set -ex; \
