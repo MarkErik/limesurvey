@@ -31,7 +31,7 @@ RUN curl -sSL "https://download.limesurvey.org/lts-releases/limesurvey3.25.2+201
 RUN set -ex; \
         tar xzvf "/tmp/limesurvey.zip" --strip-components=1 -C /var/www/html/ && \
         \
-        rm -rf "/tmp/limesurvey.zip" \
+        rm -rf "/tmp/limesurvey.tar.gz" \
         /var/www/html/docs \
         /var/www/html/tests \
         /var/www/html/*.md && \
