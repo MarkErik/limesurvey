@@ -1,5 +1,5 @@
 FROM php:7.4-fpm-alpine
-ARG version='3.25.0+201117'
+ARG version='3.25.2+201131'
 
 
 # Install OS dependencies
@@ -11,8 +11,7 @@ RUN set -ex; \
         libjpeg-turbo-dev \
         openldap-dev \
         oniguruma-dev \
-        imap-dev \
-        postgresql-dev && \
+        imap-dev && \
         apk add --no-cache netcat-openbsd bash
 
 # Install PHP plugins
