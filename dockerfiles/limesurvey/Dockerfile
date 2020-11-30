@@ -27,11 +27,11 @@ RUN set -ex; \
         zip
 
 # Download LimeSurvey
-RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
+RUN curl -sSL "https://download.limesurvey.org/lts-releases/limesurvey${version}.zip" --output /tmp/limesurvey.zip
 
 #Remove temp folder from LimeSurvey and create directory for runtime
 RUN set -ex; \
-        tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
+        tar xzvf "/tmp/limesurvey.zip" --strip-components=1 -C /var/www/html/ && \
         \
         rm -rf "/tmp/limesurvey.tar.gz" \
         /var/www/html/docs \
