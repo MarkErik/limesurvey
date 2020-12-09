@@ -62,8 +62,10 @@ RUN set -ex; \
 #For the nginx->fpm
 EXPOSE 9000
 
+VOLUME [ "/var/www/html", "/var/limesurvey/runtime", "/var/www/html/uploads", "/var/www/html/tmp" ]
+
 COPY entrypoint.sh /var/www/html/entrypoint.sh
 RUN chmod +x /var/www/html/entrypoint.sh
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]
-VOLUME [ "/var/www/html", "/var/limesurvey/runtime", "/var/www/html/uploads", "/var/www/html/tmp" ]
+
