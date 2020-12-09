@@ -66,6 +66,6 @@ VOLUME [ "/var/www/html", "/var/limesurvey/runtime", "/var/www/html/uploads", "/
 
 COPY entrypoint.sh /var/www/html/entrypoint.sh
 RUN chmod +x /var/www/html/entrypoint.sh
-ENTRYPOINT ["/var/www/html/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]
 
