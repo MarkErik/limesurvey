@@ -84,6 +84,3 @@ networks:
   outside:
     external:
       name: services
-
-volumes:
-  lime:

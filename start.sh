@@ -14,8 +14,8 @@ mkdir -p data
 # 3. Download the specified version of limesurvey
 curl -sSL https://github.com/LimeSurvey/LimeSurvey/archive/$VERSION.tar.gz --output ./data/limesurvey.tar.gz
 
-# # 4. Extract the limesurvey executable
-# tar xzvf ./data/limesurvey.tar.gz --strip-components=1 -C ./data/limesurvey/source/
+# 4. Extract the limesurvey executable
+tar xzvf ./data/limesurvey.tar.gz --strip-components=1 -C ./data/limesurvey/source/
 
 # # 5. Remove the archive and other files not needed
 # rm -rf ./data/limesurvey.tar.gz ./data/limesurvey/source/docs ./data/limesurvey/source/tests ./data/limesurvey/source/*.md
