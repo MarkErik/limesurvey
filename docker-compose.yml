@@ -8,6 +8,8 @@ services:
     volumes:
       - ./data/limesurvey/source:/var/www/html
       - ./data/limesurvey/runtime:/var/limesurvey/runtime
+      - ./data/limesurvey/uploads:/var/www/html/uploads
+      - ./data/limesurvey/tmp:/var/www/html/tmp
       - ./php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
     container_name: limesurvey-app
     depends_on:
