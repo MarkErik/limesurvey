@@ -47,20 +47,20 @@ services:
       - default
       - outside
 
-  limesurvey-redirect:
-    depends_on:
-      - limesurvey-nginx
-    build: ./dockerfiles/redirect
-    container_name: limesurvey-redirect
-    restart: unless-stopped
-    environment:
-      - VIRTUAL_HOST=${REDIRECT_ADDRESS_FROM}
-      - HTTPS_METHOD=noredirect
-      - LETSENCRYPT_HOST=${REDIRECT_ADDRESS_FROM}
-      - LETSENCRYPT_EMAIL
-      - REDIRECT=${REDIRECT_ADDRESS_TO}
-    networks:
-      - outside
+  # limesurvey-redirect:
+  #   depends_on:
+  #     - limesurvey-nginx
+  #   build: ./dockerfiles/redirect
+  #   container_name: limesurvey-redirect
+  #   restart: unless-stopped
+  #   environment:
+  #     - VIRTUAL_HOST=${REDIRECT_ADDRESS_FROM}
+  #     - HTTPS_METHOD=noredirect
+  #     - LETSENCRYPT_HOST=${REDIRECT_ADDRESS_FROM}
+  #     - LETSENCRYPT_EMAIL
+  #     - REDIRECT=${REDIRECT_ADDRESS_TO}
+  #   networks:
+  #     - outside
   
   limesurvey-db:
     image: mariadb:latest
