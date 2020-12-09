@@ -1,6 +1,4 @@
 FROM php:7.4-fpm-alpine
-ARG version='3.25.2+201131'
-
 
 # Install OS dependencies
 RUN set -ex; \
@@ -27,24 +25,24 @@ RUN set -ex; \
         zip
 
 # Download LimeSurvey
-RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
+# RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
 #Remove temp folder from LimeSurvey and create directory for runtime
-RUN set -ex; \
-        tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
-        \
-        rm -rf "/tmp/limesurvey.tar.gz" \
-        /var/www/html/docs \
-        /var/www/html/tests \
-        /var/www/html/*.md && \
-        mkdir -p /var/limesurvey/runtime
+# RUN set -ex; \
+#         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
+#         \
+#         rm -rf "/tmp/limesurvey.tar.gz" \
+#         /var/www/html/docs \
+#         /var/www/html/tests \
+#         /var/www/html/*.md && \
+#         mkdir -p /var/limesurvey/runtime
         
 
 #fetch and install plugins
-RUN set -ex; \
-        wget http://extensions.sondages.pro/IMG/auto/addScriptToQuestion.zip -P /var/www/html/plugins/ && \
-        unzip /var/www/html/plugins/addScriptToQuestion.zip -d /var/www/html/plugins/ && \
-        rm /var/www/html/plugins/addScriptToQuestion.zip
+# RUN set -ex; \
+#         wget http://extensions.sondages.pro/IMG/auto/addScriptToQuestion.zip -P /var/www/html/plugins/ && \
+#         unzip /var/www/html/plugins/addScriptToQuestion.zip -d /var/www/html/plugins/ && \
+#         rm /var/www/html/plugins/addScriptToQuestion.zip
 
 #set ownership and permissions 
 RUN set -ex; \

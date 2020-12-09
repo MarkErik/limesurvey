@@ -6,8 +6,8 @@ services:
     build:
       context: ./dockerfiles/limesurvey
     volumes:
-      - ./data/limesurvey-uploads:/var/www/html/upload/surveys
-      - lime:/var/www/html
+      - ./data/limesurvey/source:/var/www/html
+      - ./data/limesurvey/runtime:/var/limesurvey/runtime
       - ./php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
     container_name: limesurvey-app
     depends_on:
@@ -41,7 +41,7 @@ services:
       - LETSENCRYPT_EMAIL
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - lime:/var/www/html
+      - ./data/limesurvey/source:/var/www/html
       - ./logs-nginx:/var/log/nginx
     networks:
       - default
