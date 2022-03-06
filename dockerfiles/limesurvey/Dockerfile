@@ -74,4 +74,3 @@ COPY entrypoint.sh entrypoint.sh
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]
-VOLUME [ "/var/www/html", "/var/limesurvey/runtime"]
