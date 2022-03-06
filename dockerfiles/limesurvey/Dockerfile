@@ -1,6 +1,6 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.0-fpm-alpine
 
-ARG version='3.27.17+210911'
+ARG version='3.28.1+220215'
 
 # Install OS dependencies
 RUN set -ex; \
@@ -9,21 +9,29 @@ RUN set -ex; \
         libpng-dev \
         libzip-dev \
         libjpeg-turbo-dev \
+        tidyhtml-dev \
+        libsodium-dev \
         openldap-dev \
         oniguruma-dev \
-        imap-dev && \
+        imap-dev \
+        postgresql-dev && \
         apk add --no-cache netcat-openbsd bash
 
-# Install PHP plugins
+# Install PHP Plugins
 RUN set -ex; \
-        docker-php-ext-configure gd --with-freetype --with-jpeg ; \
+        docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr && \
         docker-php-ext-configure imap --with-imap-ssl && \
         docker-php-ext-install \
         gd \
         imap \
+        ldap \
         mbstring \
         pdo \
         pdo_mysql \
+        pdo_pgsql \
+        pgsql \
+        sodium \
+        tidy \
         zip
 
 # Download LimeSurvey
