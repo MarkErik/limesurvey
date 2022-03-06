@@ -82,3 +82,6 @@ networks:
   outside:
     external:
       name: nginx-proxy
+
+volumes:
+  lime:
