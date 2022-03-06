@@ -1,13 +1,12 @@
-version: "3.8"
-
 services:
 
   limesurvey-app:
     build:
       context: ./dockerfiles/limesurvey
     volumes:
-      - ./data/limesurvey/source:/var/www/html
-      - ./php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
+       - ./data/limesurvey-uploads:/var/www/html/upload/surveys
+       - lime:/var/www/html
+       - ./php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
     container_name: limesurvey-app
     depends_on:
       - limesurvey-db
@@ -40,26 +39,26 @@ services:
       - LETSENCRYPT_EMAIL
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./data/limesurvey/source:/var/www/html
+      - lime:/var/www/html
       - ./logs-nginx:/var/log/nginx
     networks:
       - default
       - outside
 
-  # limesurvey-redirect:
-  #   depends_on:
-  #     - limesurvey-nginx
-  #   build: ./dockerfiles/redirect
-  #   container_name: limesurvey-redirect
-  #   restart: unless-stopped
-  #   environment:
-  #     - VIRTUAL_HOST=${REDIRECT_ADDRESS_FROM}
-  #     - HTTPS_METHOD=noredirect
-  #     - LETSENCRYPT_HOST=${REDIRECT_ADDRESS_FROM}
-  #     - LETSENCRYPT_EMAIL
-  #     - REDIRECT=${REDIRECT_ADDRESS_TO}
-  #   networks:
-  #     - outside
+   limesurvey-redirect:
+     depends_on:
+       - limesurvey-nginx
+     build: ./dockerfiles/redirect
+     container_name: limesurvey-redirect
+     restart: unless-stopped
+     environment:
+       - VIRTUAL_HOST=${REDIRECT_ADDRESS_FROM}
+       - HTTPS_METHOD=noredirect
+       - LETSENCRYPT_HOST=${REDIRECT_ADDRESS_FROM}
+       - LETSENCRYPT_EMAIL
+       - REDIRECT=${REDIRECT_ADDRESS_TO}
+     networks:
+       - outside
   
   limesurvey-db:
     image: mariadb:latest
@@ -82,4 +81,4 @@ networks:
       name: internal-limesurvey
   outside:
     external:
-      name: services
+      name: nginx-proxy
