@@ -44,8 +44,8 @@ services:
     networks:
       - default
       - outside
-
-   limesurvey-redirect:
+      
+  limesurvey-redirect:
      depends_on:
        - limesurvey-nginx
      build: ./dockerfiles/redirect
