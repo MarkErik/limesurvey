@@ -1,6 +1,6 @@
 FROM php:8.0-fpm-alpine
 
-ARG version='3.28.9+220503'
+ARG version='3.28.26+220829'
 
 # Install OS dependencies
 RUN set -ex; \
